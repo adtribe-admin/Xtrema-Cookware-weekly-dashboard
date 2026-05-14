@@ -1,0 +1,2363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xtrema Cookware — Meta & Google Ads Weekly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #010101;
+    --purple: #6c2fce;
+    --purple-2: #8b56e3;
+    --lime: #c7f300;
+    --white: #ffffff;
+    --bg: var(--black);
+    --panel: #0a0a0c;
+    --panel-2: #111114;
+    --border: rgba(255,255,255,0.08);
+    --border-2: rgba(255,255,255,0.14);
+    --text: var(--white);
+    --muted: rgba(255,255,255,0.55);
+    --muted-2: rgba(255,255,255,0.38);
+    --accent: var(--purple);
+    --accent-2: var(--purple-2);
+    --good: var(--lime);
+    --bad: #ff5b5b;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background:
+      radial-gradient(900px 500px at 85% -10%, rgba(108,47,206,0.18) 0%, transparent 60%),
+      radial-gradient(700px 400px at 0% 110%, rgba(199,243,0,0.05) 0%, transparent 55%),
+      var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 36px 24px 64px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .wrap { max-width: 1400px; margin: 0 auto; }
+  header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 28px; gap: 16px; flex-wrap: wrap; }
+  h1 { font-size: 24px; margin: 0; letter-spacing: -0.02em; font-weight: 600; }
+  .sub { color: var(--muted); font-size: 13px; }
+  .badge {
+    display: inline-block; padding: 4px 10px; border-radius: 999px;
+    background: rgba(108,47,206,0.18); color: var(--lime);
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    border: 1px solid rgba(108,47,206,0.35);
+  }
+  .tabs {
+    display: flex; gap: 4px; margin-bottom: 22px;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    padding: 6px; width: fit-content;
+  }
+  .tab-btn {
+    appearance: none; background: transparent; color: var(--muted);
+    border: 1px solid transparent; padding: 8px 18px; border-radius: 8px;
+    font-family: inherit; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.15s ease;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active {
+    background: linear-gradient(180deg, rgba(108,47,206,0.20), rgba(108,47,206,0.10));
+    color: var(--lime);
+    border-color: rgba(108,47,206,0.35);
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 22px; }
+  @media (max-width: 800px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+  .kpi {
+    background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 18px 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(300px 120px at 110% 0%, rgba(108,47,206,0.10), transparent 70%);
+    pointer-events: none;
+  }
+  .kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.10em; margin-bottom: 8px; font-weight: 500; }
+  .kpi .value { font-size: 28px; font-weight: 600; letter-spacing: -0.025em; }
+  .kpi .meta { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .kpi.accent .value { color: var(--lime); }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .panel + .panel { margin-top: 20px; }
+  .panel-h {
+    padding: 16px 20px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .panel-h h2 { margin: 0; font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
+  .scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; min-width: 1280px; }
+  th, td { padding: 10px 12px; text-align: right; font-variant-numeric: tabular-nums; font-size: 12.5px; white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; position: sticky; left: 0; background: var(--panel); z-index: 1; }
+  thead th:first-child { background: var(--panel-2); }
+  thead th {
+    color: var(--muted); font-size: 10px; font-weight: 600;
+    letter-spacing: 0.10em; text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel-2);
+  }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover td { background: rgba(108,47,206,0.06); }
+  tbody tr:hover td:first-child { background: rgba(108,47,206,0.06); }
+  .acct { font-weight: 500; }
+  .partial-tag {
+    display: inline-block; margin-left: 6px;
+    padding: 1px 6px; border-radius: 999px;
+    background: rgba(255,255,255,0.06); color: var(--muted);
+    font-size: 9px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; border: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .pos { color: var(--lime); font-weight: 500; }
+  .neg { color: var(--bad); font-weight: 500; }
+  .neu { color: var(--muted); }
+  tfoot td {
+    border-top: 1px solid var(--border-2);
+    font-weight: 600;
+    background: var(--panel-2);
+    color: var(--text);
+  }
+  tfoot td:first-child { background: var(--panel-2); }
+  footer { color: var(--muted-2); font-size: 11px; margin-top: 24px; text-align: right; letter-spacing: 0.02em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <div class="badge">Xtrema Cookware · Weekly Performance</div>
+      <h1 style="margin-top:10px">Xtrema Cookware — Meta &amp; Google Ads Weekly</h1>
+      <div class="sub">May 12, 2025 – May 11, 2026 · 53 weeks · Meta act_1597243657678825 · Google 3271683076</div>
+      <div class="sub" style="margin-top:4px">Latest complete week: <strong style="color:var(--text)">May 04, 2026</strong> · current week May 11, 2026 is in progress</div>
+    </div>
+    <div class="sub">Source: GoMarble · KPIs: ROAS Meta ≥ 2.70 · ROAS Google ≥ 2.70</div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="meta" role="tab" aria-selected="true">Meta Ads</button>
+    <button class="tab-btn" data-tab="google" role="tab" aria-selected="false">Google Ads</button>
+    <button class="tab-btn" data-tab="overall" role="tab" aria-selected="false">Overall</button>
+  </nav>
+
+  <!-- ============ OVERALL TAB ============ -->
+  <section class="tab-panel" id="tab-overall" role="tabpanel">
+    <section class="kpis">
+      <div class="kpi">
+        <div class="label">Latest Week Spend</div>
+        <div class="value">$9,634.00</div>
+        <div class="meta">Meta $4,548.43 · Google $5,085.57</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Latest Week Blended ROAS</div>
+        <div class="value" style="color:var(--lime)">3.71</div>
+        <div class="meta">Meta 2.57 · Google 4.74</div>
+      </div>
+      <div class="kpi accent">
+        <div class="label">Latest Week Purchases</div>
+        <div class="value">123</div>
+        <div class="meta">Meta 49 · Google 74.1</div>
+      </div>
+      <div class="kpi">
+        <div class="label">ROAS Compliance · Last 4 Weeks</div>
+        <div class="value">0 <span style="color:var(--muted-2);font-size:18px;font-weight:500">/ 4</span></div>
+        <div class="meta">Weeks meeting Meta & Google ROAS targets</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-h">
+        <h2>Last 12 Months · Combined</h2>
+        <span class="sub">Last 52 weeks · May 19, 2025 – May 11, 2026</span>
+      </div>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Source</th>
+              <th>Spend</th>
+              <th>Revenue</th>
+              <th>Purchases</th>
+              <th>ROAS</th>
+              <th>CPA</th>
+              <th>Impressions</th>
+              <th>Clicks</th>
+              <th>CPM</th>
+              <th>CTR%</th>
+              <th>CPC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="acct">Meta Ads</td>
+              <td>$438,098.40</td>
+              <td>$991,082.15</td>
+              <td>3,948</td>
+              <td class="neg">2.26</td>
+              <td>$110.97</td>
+              <td>22,348,340</td>
+              <td>328,659</td>
+              <td>19.60</td>
+              <td>1.47%</td>
+              <td>$1.33</td>
+            </tr>
+            <tr>
+              <td class="acct">Google Ads</td>
+              <td>$243,646.01</td>
+              <td>$1,790,589.11</td>
+              <td>11,869.7</td>
+              <td class="pos">7.35</td>
+              <td>$20.53</td>
+              <td>11,445,825</td>
+              <td>153,598</td>
+              <td>21.29</td>
+              <td>1.34%</td>
+              <td>$1.59</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>Combined</td>
+              <td>$681,744.41</td>
+              <td>$2,781,671.26</td>
+              <td>15,817.7</td>
+              <td>4.08</td>
+              <td>$43.10</td>
+              <td>33,794,165</td>
+              <td>482,257</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-h">
+        <h2>Weekly KPIs</h2>
+        <span class="sub">Green = threshold met</span>
+      </div>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>ROAS Meta (≥ 2.70)</th>
+              <th>ROAS Google (≥ 2.70)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+      <td class="acct">May 11, 2026 <span class="partial-tag">partial</span></td>
+      <td class="neg">1.53</td>
+      <td class="neg">2.41</td>
+    </tr><tr>
+      <td class="acct">May 04, 2026</td>
+      <td class="neg">2.57</td>
+      <td class="pos">4.74</td>
+    </tr><tr>
+      <td class="acct">Apr 27, 2026</td>
+      <td class="neg">2.62</td>
+      <td class="pos">5.31</td>
+    </tr><tr>
+      <td class="acct">Apr 20, 2026</td>
+      <td class="neg">1.80</td>
+      <td class="pos">5.36</td>
+    </tr><tr>
+      <td class="acct">Apr 13, 2026</td>
+      <td class="neg">2.42</td>
+      <td class="pos">4.52</td>
+    </tr><tr>
+      <td class="acct">Apr 06, 2026</td>
+      <td class="pos">3.19</td>
+      <td class="pos">9.46</td>
+    </tr><tr>
+      <td class="acct">Mar 30, 2026</td>
+      <td class="pos">3.87</td>
+      <td class="pos">10.24</td>
+    </tr><tr>
+      <td class="acct">Mar 23, 2026</td>
+      <td class="neg">2.30</td>
+      <td class="pos">12.01</td>
+    </tr><tr>
+      <td class="acct">Mar 16, 2026</td>
+      <td class="pos">3.71</td>
+      <td class="pos">6.42</td>
+    </tr><tr>
+      <td class="acct">Mar 09, 2026</td>
+      <td class="pos">3.62</td>
+      <td class="pos">7.45</td>
+    </tr><tr>
+      <td class="acct">Mar 02, 2026</td>
+      <td class="pos">4.70</td>
+      <td class="pos">5.85</td>
+    </tr><tr>
+      <td class="acct">Feb 23, 2026</td>
+      <td class="pos">2.85</td>
+      <td class="pos">7.71</td>
+    </tr><tr>
+      <td class="acct">Feb 16, 2026</td>
+      <td class="neg">2.40</td>
+      <td class="pos">6.21</td>
+    </tr><tr>
+      <td class="acct">Feb 09, 2026</td>
+      <td class="neg">1.18</td>
+      <td class="pos">7.07</td>
+    </tr><tr>
+      <td class="acct">Feb 02, 2026</td>
+      <td class="neg">1.82</td>
+      <td class="pos">9.64</td>
+    </tr><tr>
+      <td class="acct">Jan 26, 2026</td>
+      <td class="neg">1.50</td>
+      <td class="pos">14.07</td>
+    </tr><tr>
+      <td class="acct">Jan 19, 2026</td>
+      <td class="neg">2.01</td>
+      <td class="pos">5.30</td>
+    </tr><tr>
+      <td class="acct">Jan 12, 2026</td>
+      <td class="neg">2.19</td>
+      <td class="pos">5.30</td>
+    </tr><tr>
+      <td class="acct">Jan 05, 2026</td>
+      <td class="neg">1.62</td>
+      <td class="pos">4.16</td>
+    </tr><tr>
+      <td class="acct">Dec 29, 2025</td>
+      <td class="neg">2.53</td>
+      <td class="pos">6.96</td>
+    </tr><tr>
+      <td class="acct">Dec 22, 2025</td>
+      <td class="neg">2.58</td>
+      <td class="pos">5.01</td>
+    </tr><tr>
+      <td class="acct">Dec 15, 2025</td>
+      <td class="neg">1.92</td>
+      <td class="pos">6.70</td>
+    </tr><tr>
+      <td class="acct">Dec 08, 2025</td>
+      <td class="neg">2.46</td>
+      <td class="pos">6.71</td>
+    </tr><tr>
+      <td class="acct">Dec 01, 2025</td>
+      <td class="pos">2.91</td>
+      <td class="pos">9.20</td>
+    </tr><tr>
+      <td class="acct">Nov 24, 2025</td>
+      <td class="neg">2.69</td>
+      <td class="pos">16.78</td>
+    </tr><tr>
+      <td class="acct">Nov 17, 2025</td>
+      <td class="neg">2.53</td>
+      <td class="pos">8.63</td>
+    </tr><tr>
+      <td class="acct">Nov 10, 2025</td>
+      <td class="neg">1.75</td>
+      <td class="pos">8.58</td>
+    </tr><tr>
+      <td class="acct">Nov 03, 2025</td>
+      <td class="neg">1.45</td>
+      <td class="pos">7.70</td>
+    </tr><tr>
+      <td class="acct">Oct 27, 2025</td>
+      <td class="neg">2.17</td>
+      <td class="pos">10.99</td>
+    </tr><tr>
+      <td class="acct">Oct 20, 2025</td>
+      <td class="neg">1.87</td>
+      <td class="pos">9.16</td>
+    </tr><tr>
+      <td class="acct">Oct 13, 2025</td>
+      <td class="neg">2.40</td>
+      <td class="pos">5.20</td>
+    </tr><tr>
+      <td class="acct">Oct 06, 2025</td>
+      <td class="neg">1.90</td>
+      <td class="pos">6.17</td>
+    </tr><tr>
+      <td class="acct">Sep 29, 2025</td>
+      <td class="neg">1.97</td>
+      <td class="pos">2.89</td>
+    </tr><tr>
+      <td class="acct">Sep 22, 2025</td>
+      <td class="pos">2.78</td>
+      <td class="pos">7.78</td>
+    </tr><tr>
+      <td class="acct">Sep 15, 2025</td>
+      <td class="neg">2.49</td>
+      <td class="pos">5.65</td>
+    </tr><tr>
+      <td class="acct">Sep 08, 2025</td>
+      <td class="neg">1.89</td>
+      <td class="pos">7.09</td>
+    </tr><tr>
+      <td class="acct">Sep 01, 2025</td>
+      <td class="pos">4.30</td>
+      <td class="pos">7.97</td>
+    </tr><tr>
+      <td class="acct">Aug 25, 2025</td>
+      <td class="pos">3.00</td>
+      <td class="pos">7.36</td>
+    </tr><tr>
+      <td class="acct">Aug 18, 2025</td>
+      <td class="neg">1.33</td>
+      <td class="pos">4.29</td>
+    </tr><tr>
+      <td class="acct">Aug 11, 2025</td>
+      <td class="neg">1.75</td>
+      <td class="pos">7.30</td>
+    </tr><tr>
+      <td class="acct">Aug 04, 2025</td>
+      <td class="neg">2.29</td>
+      <td class="pos">5.43</td>
+    </tr><tr>
+      <td class="acct">Jul 28, 2025</td>
+      <td class="pos">3.71</td>
+      <td class="pos">7.13</td>
+    </tr><tr>
+      <td class="acct">Jul 21, 2025</td>
+      <td class="neg">1.93</td>
+      <td class="pos">6.34</td>
+    </tr><tr>
+      <td class="acct">Jul 14, 2025</td>
+      <td class="neg">1.10</td>
+      <td class="pos">3.55</td>
+    </tr><tr>
+      <td class="acct">Jul 07, 2025</td>
+      <td class="pos">3.45</td>
+      <td class="pos">6.88</td>
+    </tr><tr>
+      <td class="acct">Jun 30, 2025</td>
+      <td class="neg">2.44</td>
+      <td class="pos">7.56</td>
+    </tr><tr>
+      <td class="acct">Jun 23, 2025</td>
+      <td class="neg">1.92</td>
+      <td class="pos">10.52</td>
+    </tr><tr>
+      <td class="acct">Jun 16, 2025</td>
+      <td class="neg">2.15</td>
+      <td class="pos">3.95</td>
+    </tr><tr>
+      <td class="acct">Jun 09, 2025</td>
+      <td class="neg">2.29</td>
+      <td class="pos">7.63</td>
+    </tr><tr>
+      <td class="acct">Jun 02, 2025</td>
+      <td class="neg">1.44</td>
+      <td class="pos">6.32</td>
+    </tr><tr>
+      <td class="acct">May 26, 2025</td>
+      <td class="neg">1.34</td>
+      <td class="pos">5.66</td>
+    </tr><tr>
+      <td class="acct">May 19, 2025</td>
+      <td class="neg">1.35</td>
+      <td class="pos">7.17</td>
+    </tr><tr>
+      <td class="acct">May 12, 2025</td>
+      <td class="neg">1.53</td>
+      <td class="pos">4.08</td>
+    </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </section>
+
+  <!-- ============ META ADS TAB ============ -->
+  <section class="tab-panel active" id="tab-meta" role="tabpanel">
+    <section class="kpis">
+      <div class="kpi">
+        <div class="label">Meta · Latest Week Spend</div>
+        <div class="value">$4,548.43</div>
+        <div class="meta">May 04, 2026</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Meta · Latest Week ROAS</div>
+        <div class="value" style="color:var(--bad)">2.57</div>
+        <div class="meta">Target ≥ 3 · Revenue $11,691.70</div>
+      </div>
+      <div class="kpi accent">
+        <div class="label">Meta · Latest Week Purchases</div>
+        <div class="value">49</div>
+        <div class="meta">CPA $92.83</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Meta · Latest Week Revenue</div>
+        <div class="value">$11,691.70</div>
+        <div class="meta">AOV $238.61 · ROAS 2.57</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-h">
+        <h2>Meta Ads — Weekly Detail</h2>
+        <span class="sub">Xtrema Cookware Official · Spend shaded by volume · ROAS shaded vs target 2.70</span>
+      </div>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Amount Spent</th>
+              <th>Purchases</th>
+              <th>Revenue</th>
+              <th>CPA</th>
+              <th>ROAS</th>
+              <th>Reach</th>
+              <th>Impressions</th>
+              <th>Clicks</th>
+              <th>CPM</th>
+              <th>CTR%</th>
+              <th>CPC</th>
+              <th>Frequency</th>
+              <th>Hook Rate</th>
+              <th>Hold Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+      <td class="acct">May 11, 2026 <span class="partial-tag">partial</span></td>
+      <td>$1,965.79</td>
+      <td>14</td>
+      <td>$3,006.96</td>
+      <td>$140.41</td>
+      <td>1.53</td>
+      <td>42,348</td>
+      <td>94,592</td>
+      <td>3,898</td>
+      <td>20.78</td>
+      <td>0.04%</td>
+      <td>$0.50</td>
+      <td>2.23</td>
+      <td>23.52%</td>
+      <td>40.94%</td>
+    </tr><tr>
+      <td class="acct">May 04, 2026</td>
+      <td style="background:rgba(108,47,206,0.06)">$4,548.43</td>
+      <td>49</td>
+      <td>$11,691.70</td>
+      <td>$92.83</td>
+      <td style="background:rgba(255,91,91,0.11)">2.57</td>
+      <td>62,110</td>
+      <td>227,521</td>
+      <td>4,505</td>
+      <td>19.99</td>
+      <td>0.02%</td>
+      <td>$1.01</td>
+      <td>3.66</td>
+      <td>11.77%</td>
+      <td>22.98%</td>
+    </tr><tr>
+      <td class="acct">Apr 27, 2026</td>
+      <td style="background:rgba(108,47,206,0.06)">$6,070.56</td>
+      <td>78</td>
+      <td>$15,878.71</td>
+      <td>$77.83</td>
+      <td style="background:rgba(255,91,91,0.11)">2.62</td>
+      <td>71,078</td>
+      <td>267,993</td>
+      <td>5,209</td>
+      <td>22.65</td>
+      <td>0.02%</td>
+      <td>$1.17</td>
+      <td>3.77</td>
+      <td>9.91%</td>
+      <td>22.01%</td>
+    </tr><tr>
+      <td class="acct">Apr 20, 2026</td>
+      <td style="background:rgba(108,47,206,0.07)">$7,446.40</td>
+      <td>61</td>
+      <td>$13,398.62</td>
+      <td>$122.07</td>
+      <td style="background:rgba(255,91,91,0.19)">1.80</td>
+      <td>80,588</td>
+      <td>246,451</td>
+      <td>5,407</td>
+      <td>30.21</td>
+      <td>0.02%</td>
+      <td>$1.38</td>
+      <td>3.06</td>
+      <td>16.18%</td>
+      <td>23.31%</td>
+    </tr><tr>
+      <td class="acct">Apr 13, 2026</td>
+      <td style="background:rgba(108,47,206,0.05)">$3,969.32</td>
+      <td>44</td>
+      <td>$9,607.30</td>
+      <td>$90.21</td>
+      <td style="background:rgba(255,91,91,0.13)">2.42</td>
+      <td>71,690</td>
+      <td>153,796</td>
+      <td>3,888</td>
+      <td>25.81</td>
+      <td>0.03%</td>
+      <td>$1.02</td>
+      <td>2.15</td>
+      <td>20.98%</td>
+      <td>24.60%</td>
+    </tr><tr>
+      <td class="acct">Apr 06, 2026</td>
+      <td style="background:rgba(108,47,206,0.04)">$2,147.24</td>
+      <td>38</td>
+      <td>$6,840.73</td>
+      <td>$56.51</td>
+      <td style="background:rgba(199,243,0,0.10)">3.19</td>
+      <td>26,689</td>
+      <td>101,426</td>
+      <td>2,128</td>
+      <td>21.17</td>
+      <td>0.02%</td>
+      <td>$1.01</td>
+      <td>3.80</td>
+      <td>15.38%</td>
+      <td>28.43%</td>
+    </tr><tr>
+      <td class="acct">Mar 30, 2026</td>
+      <td style="background:rgba(108,47,206,0.04)">$1,535.84</td>
+      <td>25</td>
+      <td>$5,947.27</td>
+      <td>$61.43</td>
+      <td style="background:rgba(199,243,0,0.16)">3.87</td>
+      <td>31,230</td>
+      <td>100,758</td>
+      <td>2,086</td>
+      <td>15.24</td>
+      <td>0.02%</td>
+      <td>$0.74</td>
+      <td>3.23</td>
+      <td>15.72%</td>
+      <td>24.39%</td>
+    </tr><tr>
+      <td class="acct">Mar 23, 2026</td>
+      <td style="background:rgba(108,47,206,0.05)">$3,624.08</td>
+      <td>27</td>
+      <td>$8,345.64</td>
+      <td>$134.23</td>
+      <td style="background:rgba(255,91,91,0.14)">2.30</td>
+      <td>54,183</td>
+      <td>170,298</td>
+      <td>3,933</td>
+      <td>21.28</td>
+      <td>0.02%</td>
+      <td>$0.92</td>
+      <td>3.14</td>
+      <td>20.65%</td>
+      <td>28.70%</td>
+    </tr><tr>
+      <td class="acct">Mar 16, 2026</td>
+      <td style="background:rgba(108,47,206,0.05)">$3,609.44</td>
+      <td>42</td>
+      <td>$13,386.78</td>
+      <td>$85.94</td>
+      <td style="background:rgba(199,243,0,0.15)">3.71</td>
+      <td>51,766</td>
+      <td>170,384</td>
+      <td>3,712</td>
+      <td>21.18</td>
+      <td>0.02%</td>
+      <td>$0.97</td>
+      <td>3.29</td>
+      <td>19.90%</td>
+      <td>27.14%</td>
+    </tr><tr>
+      <td class="acct">Mar 09, 2026</td>
+      <td style="background:rgba(108,47,206,0.05)">$3,423.74</td>
+      <td>40</td>
+      <td>$12,387.97</td>
+      <td>$85.59</td>
+      <td style="background:rgba(199,243,0,0.14)">3.62</td>
+      <td>60,584</td>
+      <td>202,574</td>
+      <td>3,191</td>
+      <td>16.90</td>
+      <td>0.02%</td>
+      <td>$1.07</td>
+      <td>3.34</td>
+      <td>15.71%</td>
+      <td>24.13%</td>
+    </tr><tr>
+      <td class="acct">Mar 02, 2026</td>
+      <td style="background:rgba(108,47,206,0.05)">$3,185.23</td>
+      <td>34</td>
+      <td>$14,982.81</td>
+      <td>$93.68</td>
+      <td style="background:rgba(199,243,0,0.24)">4.70</td>
+      <td>44,429</td>
+      <td>190,739</td>
+      <td>3,058</td>
+      <td>16.70</td>
+      <td>0.02%</td>
+      <td>$1.04</td>
+      <td>4.29</td>
+      <td>14.39%</td>
+      <td>24.15%</td>
+    </tr><tr>
+      <td class="acct">Feb 23, 2026</td>
+      <td style="background:rgba(108,47,206,0.07)">$6,507.11</td>
+      <td>66</td>
+      <td>$18,531.37</td>
+      <td>$98.59</td>
+      <td style="background:rgba(199,243,0,0.07)">2.85</td>
+      <td>89,222</td>
+      <td>393,068</td>
+      <td>6,399</td>
+      <td>16.55</td>
+      <td>0.02%</td>
+      <td>$1.02</td>
+      <td>4.41</td>
+      <td>9.32%</td>
+      <td>26.39%</td>
+    </tr><tr>
+      <td class="acct">Feb 16, 2026</td>
+      <td style="background:rgba(108,47,206,0.08)">$8,772.43</td>
+      <td>104</td>
+      <td>$21,085.13</td>
+      <td>$84.35</td>
+      <td style="background:rgba(255,91,91,0.13)">2.40</td>
+      <td>109,290</td>
+      <td>513,915</td>
+      <td>7,438</td>
+      <td>17.07</td>
+      <td>0.01%</td>
+      <td>$1.18</td>
+      <td>4.70</td>
+      <td>7.57%</td>
+      <td>26.78%</td>
+    </tr><tr>
+      <td class="acct">Feb 09, 2026</td>
+      <td style="background:rgba(108,47,206,0.08)">$8,563.93</td>
+      <td>46</td>
+      <td>$10,110.09</td>
+      <td>$186.17</td>
+      <td style="background:rgba(255,91,91,0.26)">1.18</td>
+      <td>135,729</td>
+      <td>579,220</td>
+      <td>9,774</td>
+      <td>14.79</td>
+      <td>0.02%</td>
+      <td>$0.88</td>
+      <td>4.27</td>
+      <td>7.26%</td>
+      <td>28.39%</td>
+    </tr><tr>
+      <td class="acct">Feb 02, 2026</td>
+      <td style="background:rgba(108,47,206,0.09)">$9,984.56</td>
+      <td>83</td>
+      <td>$18,165.96</td>
+      <td>$120.30</td>
+      <td style="background:rgba(255,91,91,0.19)">1.82</td>
+      <td>142,867</td>
+      <td>647,533</td>
+      <td>10,011</td>
+      <td>15.42</td>
+      <td>0.02%</td>
+      <td>$1.00</td>
+      <td>4.53</td>
+      <td>4.71%</td>
+      <td>29.62%</td>
+    </tr><tr>
+      <td class="acct">Jan 26, 2026</td>
+      <td style="background:rgba(108,47,206,0.14)">$19,870.71</td>
+      <td>148</td>
+      <td>$29,762.66</td>
+      <td>$134.26</td>
+      <td style="background:rgba(255,91,91,0.22)">1.50</td>
+      <td>292,606</td>
+      <td>1,055,525</td>
+      <td>19,596</td>
+      <td>18.83</td>
+      <td>0.02%</td>
+      <td>$1.01</td>
+      <td>3.61</td>
+      <td>6.22%</td>
+      <td>29.21%</td>
+    </tr><tr>
+      <td class="acct">Jan 19, 2026</td>
+      <td style="background:rgba(108,47,206,0.17)">$24,914.45</td>
+      <td>219</td>
+      <td>$50,102.28</td>
+      <td>$113.76</td>
+      <td style="background:rgba(255,91,91,0.17)">2.01</td>
+      <td>384,494</td>
+      <td>1,103,084</td>
+      <td>17,633</td>
+      <td>22.59</td>
+      <td>0.02%</td>
+      <td>$1.41</td>
+      <td>2.87</td>
+      <td>4.00%</td>
+      <td>27.30%</td>
+    </tr><tr>
+      <td class="acct">Jan 12, 2026</td>
+      <td style="background:rgba(108,47,206,0.05)">$4,035.82</td>
+      <td>31</td>
+      <td>$8,845.33</td>
+      <td>$130.19</td>
+      <td style="background:rgba(255,91,91,0.15)">2.19</td>
+      <td>67,680</td>
+      <td>273,905</td>
+      <td>3,340</td>
+      <td>14.73</td>
+      <td>0.01%</td>
+      <td>$1.21</td>
+      <td>4.05</td>
+      <td>5.09%</td>
+      <td>26.72%</td>
+    </tr><tr>
+      <td class="acct">Jan 05, 2026</td>
+      <td style="background:rgba(108,47,206,0.06)">$5,178.03</td>
+      <td>37</td>
+      <td>$8,402.65</td>
+      <td>$139.95</td>
+      <td style="background:rgba(255,91,91,0.21)">1.62</td>
+      <td>108,444</td>
+      <td>381,486</td>
+      <td>5,907</td>
+      <td>13.57</td>
+      <td>0.02%</td>
+      <td>$0.88</td>
+      <td>3.52</td>
+      <td>8.76%</td>
+      <td>24.87%</td>
+    </tr><tr>
+      <td class="acct">Dec 29, 2025</td>
+      <td style="background:rgba(108,47,206,0.08)">$8,188.57</td>
+      <td>81</td>
+      <td>$20,738.54</td>
+      <td>$101.09</td>
+      <td style="background:rgba(255,91,91,0.12)">2.53</td>
+      <td>258,247</td>
+      <td>848,267</td>
+      <td>10,792</td>
+      <td>9.65</td>
+      <td>0.01%</td>
+      <td>$0.76</td>
+      <td>3.28</td>
+      <td>9.43%</td>
+      <td>19.12%</td>
+    </tr><tr>
+      <td class="acct">Dec 22, 2025</td>
+      <td style="background:rgba(108,47,206,0.08)">$8,489.59</td>
+      <td>85</td>
+      <td>$21,941.01</td>
+      <td>$99.88</td>
+      <td style="background:rgba(255,91,91,0.11)">2.58</td>
+      <td>332,910</td>
+      <td>1,107,537</td>
+      <td>10,908</td>
+      <td>7.67</td>
+      <td>0.01%</td>
+      <td>$0.78</td>
+      <td>3.33</td>
+      <td>10.83%</td>
+      <td>18.09%</td>
+    </tr><tr>
+      <td class="acct">Dec 15, 2025</td>
+      <td style="background:rgba(108,47,206,0.12)">$16,526.72</td>
+      <td>131</td>
+      <td>$31,766.20</td>
+      <td>$126.16</td>
+      <td style="background:rgba(255,91,91,0.18)">1.92</td>
+      <td>400,839</td>
+      <td>1,070,779</td>
+      <td>17,647</td>
+      <td>15.43</td>
+      <td>0.02%</td>
+      <td>$0.94</td>
+      <td>2.67</td>
+      <td>9.92%</td>
+      <td>21.72%</td>
+    </tr><tr>
+      <td class="acct">Dec 08, 2025</td>
+      <td style="background:rgba(108,47,206,0.11)">$13,792.64</td>
+      <td>133</td>
+      <td>$33,861.83</td>
+      <td>$103.70</td>
+      <td style="background:rgba(255,91,91,0.13)">2.46</td>
+      <td>217,390</td>
+      <td>667,640</td>
+      <td>14,047</td>
+      <td>20.66</td>
+      <td>0.02%</td>
+      <td>$0.98</td>
+      <td>3.07</td>
+      <td>12.70%</td>
+      <td>23.47%</td>
+    </tr><tr>
+      <td class="acct">Dec 01, 2025</td>
+      <td style="background:rgba(108,47,206,0.14)">$19,403.73</td>
+      <td>211</td>
+      <td>$56,461.81</td>
+      <td>$91.96</td>
+      <td style="background:rgba(199,243,0,0.08)">2.91</td>
+      <td>296,294</td>
+      <td>810,680</td>
+      <td>12,251</td>
+      <td>23.94</td>
+      <td>0.02%</td>
+      <td>$1.58</td>
+      <td>2.74</td>
+      <td>14.98%</td>
+      <td>19.51%</td>
+    </tr><tr>
+      <td class="acct">Nov 24, 2025</td>
+      <td style="background:rgba(108,47,206,0.26)">$41,875.75</td>
+      <td>457</td>
+      <td>$112,802.62</td>
+      <td>$91.63</td>
+      <td style="background:rgba(255,91,91,0.10)">2.69</td>
+      <td>480,214</td>
+      <td>1,535,317</td>
+      <td>18,719</td>
+      <td>27.27</td>
+      <td>0.01%</td>
+      <td>$2.24</td>
+      <td>3.20</td>
+      <td>16.37%</td>
+      <td>20.02%</td>
+    </tr><tr>
+      <td class="acct">Nov 17, 2025</td>
+      <td style="background:rgba(108,47,206,0.14)">$19,479.00</td>
+      <td>173</td>
+      <td>$49,251.31</td>
+      <td>$112.60</td>
+      <td style="background:rgba(255,91,91,0.12)">2.53</td>
+      <td>236,897</td>
+      <td>884,570</td>
+      <td>13,777</td>
+      <td>22.02</td>
+      <td>0.02%</td>
+      <td>$1.41</td>
+      <td>3.73</td>
+      <td>12.99%</td>
+      <td>20.34%</td>
+    </tr><tr>
+      <td class="acct">Nov 10, 2025</td>
+      <td style="background:rgba(108,47,206,0.10)">$11,778.24</td>
+      <td>82</td>
+      <td>$20,669.93</td>
+      <td>$143.64</td>
+      <td style="background:rgba(255,91,91,0.20)">1.75</td>
+      <td>189,250</td>
+      <td>615,809</td>
+      <td>9,762</td>
+      <td>19.13</td>
+      <td>0.02%</td>
+      <td>$1.21</td>
+      <td>3.25</td>
+      <td>6.87%</td>
+      <td>20.98%</td>
+    </tr><tr>
+      <td class="acct">Nov 03, 2025</td>
+      <td style="background:rgba(108,47,206,0.09)">$11,125.69</td>
+      <td>61</td>
+      <td>$16,109.72</td>
+      <td>$182.39</td>
+      <td style="background:rgba(255,91,91,0.23)">1.45</td>
+      <td>219,376</td>
+      <td>622,174</td>
+      <td>8,740</td>
+      <td>17.88</td>
+      <td>0.01%</td>
+      <td>$1.27</td>
+      <td>2.84</td>
+      <td>3.68%</td>
+      <td>25.24%</td>
+    </tr><tr>
+      <td class="acct">Oct 27, 2025</td>
+      <td style="background:rgba(108,47,206,0.08)">$8,396.64</td>
+      <td>80</td>
+      <td>$18,251.53</td>
+      <td>$104.96</td>
+      <td style="background:rgba(255,91,91,0.15)">2.17</td>
+      <td>126,225</td>
+      <td>440,882</td>
+      <td>4,711</td>
+      <td>19.05</td>
+      <td>0.01%</td>
+      <td>$1.78</td>
+      <td>3.49</td>
+      <td>4.13%</td>
+      <td>25.92%</td>
+    </tr><tr>
+      <td class="acct">Oct 20, 2025</td>
+      <td style="background:rgba(108,47,206,0.09)">$10,555.97</td>
+      <td>84</td>
+      <td>$19,748.16</td>
+      <td>$125.67</td>
+      <td style="background:rgba(255,91,91,0.19)">1.87</td>
+      <td>134,351</td>
+      <td>477,499</td>
+      <td>5,958</td>
+      <td>22.11</td>
+      <td>0.01%</td>
+      <td>$1.77</td>
+      <td>3.55</td>
+      <td>3.03%</td>
+      <td>30.02%</td>
+    </tr><tr>
+      <td class="acct">Oct 13, 2025</td>
+      <td style="background:rgba(108,47,206,0.06)">$5,888.14</td>
+      <td>51</td>
+      <td>$14,157.24</td>
+      <td>$115.45</td>
+      <td style="background:rgba(255,91,91,0.13)">2.40</td>
+      <td>98,576</td>
+      <td>308,375</td>
+      <td>3,988</td>
+      <td>19.09</td>
+      <td>0.01%</td>
+      <td>$1.48</td>
+      <td>3.13</td>
+      <td>8.58%</td>
+      <td>24.64%</td>
+    </tr><tr>
+      <td class="acct">Oct 06, 2025</td>
+      <td style="background:rgba(108,47,206,0.06)">$5,329.20</td>
+      <td>39</td>
+      <td>$10,103.44</td>
+      <td>$136.65</td>
+      <td style="background:rgba(255,91,91,0.18)">1.90</td>
+      <td>80,822</td>
+      <td>255,343</td>
+      <td>3,174</td>
+      <td>20.87</td>
+      <td>0.01%</td>
+      <td>$1.68</td>
+      <td>3.16</td>
+      <td>8.51%</td>
+      <td>23.32%</td>
+    </tr><tr>
+      <td class="acct">Sep 29, 2025</td>
+      <td style="background:rgba(108,47,206,0.07)">$6,954.84</td>
+      <td>38</td>
+      <td>$13,699.52</td>
+      <td>$183.02</td>
+      <td style="background:rgba(255,91,91,0.18)">1.97</td>
+      <td>148,430</td>
+      <td>372,222</td>
+      <td>4,460</td>
+      <td>18.68</td>
+      <td>0.01%</td>
+      <td>$1.56</td>
+      <td>2.51</td>
+      <td>7.59%</td>
+      <td>21.01%</td>
+    </tr><tr>
+      <td class="acct">Sep 22, 2025</td>
+      <td style="background:rgba(108,47,206,0.06)">$5,073.53</td>
+      <td>53</td>
+      <td>$14,079.52</td>
+      <td>$95.73</td>
+      <td style="background:rgba(199,243,0,0.07)">2.78</td>
+      <td>62,815</td>
+      <td>243,611</td>
+      <td>2,997</td>
+      <td>20.83</td>
+      <td>0.01%</td>
+      <td>$1.69</td>
+      <td>3.88</td>
+      <td>5.70%</td>
+      <td>19.93%</td>
+    </tr><tr>
+      <td class="acct">Sep 15, 2025</td>
+      <td style="background:rgba(108,47,206,0.06)">$4,914.65</td>
+      <td>41</td>
+      <td>$12,249.88</td>
+      <td>$119.87</td>
+      <td style="background:rgba(255,91,91,0.12)">2.49</td>
+      <td>58,230</td>
+      <td>238,075</td>
+      <td>2,830</td>
+      <td>20.64</td>
+      <td>0.01%</td>
+      <td>$1.74</td>
+      <td>4.09</td>
+      <td>6.42%</td>
+      <td>20.87%</td>
+    </tr><tr>
+      <td class="acct">Sep 08, 2025</td>
+      <td style="background:rgba(108,47,206,0.08)">$8,455.53</td>
+      <td>73</td>
+      <td>$15,994.44</td>
+      <td>$115.83</td>
+      <td style="background:rgba(255,91,91,0.18)">1.89</td>
+      <td>83,083</td>
+      <td>363,846</td>
+      <td>4,094</td>
+      <td>23.24</td>
+      <td>0.01%</td>
+      <td>$2.07</td>
+      <td>4.38</td>
+      <td>5.46%</td>
+      <td>21.15%</td>
+    </tr><tr>
+      <td class="acct">Sep 01, 2025</td>
+      <td style="background:rgba(108,47,206,0.08)">$8,800.36</td>
+      <td>126</td>
+      <td>$37,800.08</td>
+      <td>$69.84</td>
+      <td style="background:rgba(199,243,0,0.20)">4.30</td>
+      <td>84,282</td>
+      <td>372,575</td>
+      <td>4,752</td>
+      <td>23.62</td>
+      <td>0.01%</td>
+      <td>$1.85</td>
+      <td>4.42</td>
+      <td>3.55%</td>
+      <td>20.23%</td>
+    </tr><tr>
+      <td class="acct">Aug 25, 2025</td>
+      <td style="background:rgba(108,47,206,0.08)">$8,974.63</td>
+      <td>98</td>
+      <td>$26,905.20</td>
+      <td>$91.58</td>
+      <td style="background:rgba(199,243,0,0.09)">3.00</td>
+      <td>87,764</td>
+      <td>348,060</td>
+      <td>5,288</td>
+      <td>25.78</td>
+      <td>0.02%</td>
+      <td>$1.70</td>
+      <td>3.97</td>
+      <td>3.71%</td>
+      <td>19.27%</td>
+    </tr><tr>
+      <td class="acct">Aug 18, 2025</td>
+      <td style="background:rgba(108,47,206,0.07)">$6,370.97</td>
+      <td>35</td>
+      <td>$8,458.63</td>
+      <td>$182.03</td>
+      <td style="background:rgba(255,91,91,0.24)">1.33</td>
+      <td>130,120</td>
+      <td>390,868</td>
+      <td>4,747</td>
+      <td>16.30</td>
+      <td>0.01%</td>
+      <td>$1.34</td>
+      <td>3.00</td>
+      <td>10.34%</td>
+      <td>19.66%</td>
+    </tr><tr>
+      <td class="acct">Aug 11, 2025</td>
+      <td style="background:rgba(108,47,206,0.07)">$6,911.07</td>
+      <td>57</td>
+      <td>$12,092.18</td>
+      <td>$121.25</td>
+      <td style="background:rgba(255,91,91,0.20)">1.75</td>
+      <td>127,236</td>
+      <td>426,629</td>
+      <td>4,645</td>
+      <td>16.20</td>
+      <td>0.01%</td>
+      <td>$1.49</td>
+      <td>3.35</td>
+      <td>13.38%</td>
+      <td>19.05%</td>
+    </tr><tr>
+      <td class="acct">Aug 04, 2025</td>
+      <td style="background:rgba(108,47,206,0.06)">$5,764.64</td>
+      <td>75</td>
+      <td>$13,211.36</td>
+      <td>$76.86</td>
+      <td style="background:rgba(255,91,91,0.14)">2.29</td>
+      <td>104,037</td>
+      <td>305,801</td>
+      <td>3,417</td>
+      <td>18.85</td>
+      <td>0.01%</td>
+      <td>$1.69</td>
+      <td>2.94</td>
+      <td>15.75%</td>
+      <td>18.58%</td>
+    </tr><tr>
+      <td class="acct">Jul 28, 2025</td>
+      <td style="background:rgba(108,47,206,0.06)">$4,350.55</td>
+      <td>64</td>
+      <td>$16,121.69</td>
+      <td>$67.98</td>
+      <td style="background:rgba(199,243,0,0.15)">3.71</td>
+      <td>68,279</td>
+      <td>214,592</td>
+      <td>2,340</td>
+      <td>20.27</td>
+      <td>0.01%</td>
+      <td>$1.86</td>
+      <td>3.14</td>
+      <td>15.73%</td>
+      <td>18.77%</td>
+    </tr><tr>
+      <td class="acct">Jul 21, 2025</td>
+      <td style="background:rgba(108,47,206,0.05)">$4,273.10</td>
+      <td>38</td>
+      <td>$8,238.25</td>
+      <td>$112.45</td>
+      <td style="background:rgba(255,91,91,0.18)">1.93</td>
+      <td>60,716</td>
+      <td>215,041</td>
+      <td>2,238</td>
+      <td>19.87</td>
+      <td>0.01%</td>
+      <td>$1.91</td>
+      <td>3.54</td>
+      <td>13.00%</td>
+      <td>17.47%</td>
+    </tr><tr>
+      <td class="acct">Jul 14, 2025</td>
+      <td style="background:rgba(108,47,206,0.06)">$4,552.54</td>
+      <td>21</td>
+      <td>$5,014.01</td>
+      <td>$216.79</td>
+      <td style="background:rgba(255,91,91,0.27)">1.10</td>
+      <td>77,804</td>
+      <td>233,743</td>
+      <td>2,641</td>
+      <td>19.48</td>
+      <td>0.01%</td>
+      <td>$1.72</td>
+      <td>3.00</td>
+      <td>16.07%</td>
+      <td>18.60%</td>
+    </tr><tr>
+      <td class="acct">Jul 07, 2025</td>
+      <td style="background:rgba(108,47,206,0.05)">$4,256.22</td>
+      <td>46</td>
+      <td>$14,704.95</td>
+      <td>$92.53</td>
+      <td style="background:rgba(199,243,0,0.13)">3.45</td>
+      <td>78,754</td>
+      <td>210,389</td>
+      <td>2,439</td>
+      <td>20.23</td>
+      <td>0.01%</td>
+      <td>$1.75</td>
+      <td>2.67</td>
+      <td>19.22%</td>
+      <td>18.77%</td>
+    </tr><tr>
+      <td class="acct">Jun 30, 2025</td>
+      <td style="background:rgba(108,47,206,0.08)">$8,883.83</td>
+      <td>77</td>
+      <td>$21,644.15</td>
+      <td>$115.37</td>
+      <td style="background:rgba(255,91,91,0.13)">2.44</td>
+      <td>123,866</td>
+      <td>382,992</td>
+      <td>4,324</td>
+      <td>23.20</td>
+      <td>0.01%</td>
+      <td>$2.05</td>
+      <td>3.09</td>
+      <td>11.21%</td>
+      <td>19.24%</td>
+    </tr><tr>
+      <td class="acct">Jun 23, 2025</td>
+      <td style="background:rgba(108,47,206,0.06)">$6,051.35</td>
+      <td>46</td>
+      <td>$11,622.48</td>
+      <td>$131.55</td>
+      <td style="background:rgba(255,91,91,0.18)">1.92</td>
+      <td>119,866</td>
+      <td>274,785</td>
+      <td>3,944</td>
+      <td>22.02</td>
+      <td>0.01%</td>
+      <td>$1.53</td>
+      <td>2.29</td>
+      <td>15.13%</td>
+      <td>18.16%</td>
+    </tr><tr>
+      <td class="acct">Jun 16, 2025</td>
+      <td style="background:rgba(108,47,206,0.06)">$5,683.35</td>
+      <td>47</td>
+      <td>$12,219.99</td>
+      <td>$120.92</td>
+      <td style="background:rgba(255,91,91,0.16)">2.15</td>
+      <td>82,071</td>
+      <td>232,158</td>
+      <td>2,830</td>
+      <td>24.48</td>
+      <td>0.01%</td>
+      <td>$2.01</td>
+      <td>2.83</td>
+      <td>13.53%</td>
+      <td>17.72%</td>
+    </tr><tr>
+      <td class="acct">Jun 09, 2025</td>
+      <td style="background:rgba(108,47,206,0.05)">$3,366.98</td>
+      <td>28</td>
+      <td>$7,702.50</td>
+      <td>$120.25</td>
+      <td style="background:rgba(255,91,91,0.14)">2.29</td>
+      <td>43,895</td>
+      <td>131,862</td>
+      <td>1,714</td>
+      <td>25.53</td>
+      <td>0.01%</td>
+      <td>$1.96</td>
+      <td>3.00</td>
+      <td>9.97%</td>
+      <td>18.89%</td>
+    </tr><tr>
+      <td class="acct">Jun 02, 2025</td>
+      <td style="background:rgba(108,47,206,0.05)">$4,081.57</td>
+      <td>20</td>
+      <td>$5,878.84</td>
+      <td>$204.08</td>
+      <td style="background:rgba(255,91,91,0.23)">1.44</td>
+      <td>62,294</td>
+      <td>136,949</td>
+      <td>2,332</td>
+      <td>29.80</td>
+      <td>0.02%</td>
+      <td>$1.75</td>
+      <td>2.20</td>
+      <td>3.70%</td>
+      <td>20.75%</td>
+    </tr><tr>
+      <td class="acct">May 26, 2025</td>
+      <td style="background:rgba(108,47,206,0.10)">$12,127.91</td>
+      <td>62</td>
+      <td>$16,194.66</td>
+      <td>$195.61</td>
+      <td style="background:rgba(255,91,91,0.24)">1.34</td>
+      <td>184,454</td>
+      <td>436,173</td>
+      <td>6,441</td>
+      <td>27.81</td>
+      <td>0.01%</td>
+      <td>$1.88</td>
+      <td>2.36</td>
+      <td>8.54%</td>
+      <td>21.74%</td>
+    </tr><tr>
+      <td class="acct">May 19, 2025</td>
+      <td style="background:rgba(108,47,206,0.08)">$8,067.79</td>
+      <td>49</td>
+      <td>$10,906.52</td>
+      <td>$164.65</td>
+      <td style="background:rgba(255,91,91,0.24)">1.35</td>
+      <td>100,294</td>
+      <td>298,829</td>
+      <td>4,599</td>
+      <td>27.00</td>
+      <td>0.02%</td>
+      <td>$1.75</td>
+      <td>2.98</td>
+      <td>8.99%</td>
+      <td>22.52%</td>
+    </tr><tr>
+      <td class="acct">May 12, 2025</td>
+      <td style="background:rgba(108,47,206,0.07)">$6,143.17</td>
+      <td>40</td>
+      <td>$9,404.47</td>
+      <td>$153.58</td>
+      <td style="background:rgba(255,91,91,0.22)">1.53</td>
+      <td>95,548</td>
+      <td>248,553</td>
+      <td>6,509</td>
+      <td>24.72</td>
+      <td>0.03%</td>
+      <td>$0.94</td>
+      <td>2.60</td>
+      <td>10.62%</td>
+      <td>20.28%</td>
+    </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>Last 12 Months</td>
+              <td>$438,098.40</td>
+              <td>3,948</td>
+              <td>$991,082.15</td>
+              <td>$110.97</td>
+              <td class="neg">2.26</td>
+              <td>—</td>
+              <td>22,348,340</td>
+              <td>328,659</td>
+              <td>19.60</td>
+              <td>1.47%</td>
+              <td>$1.33</td>
+              <td>—</td>
+              <td>9.95%</td>
+              <td>22.08%</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+  </section>
+
+  <!-- ============ GOOGLE ADS TAB ============ -->
+  <section class="tab-panel" id="tab-google" role="tabpanel">
+    <section class="kpis">
+      <div class="kpi">
+        <div class="label">Google · Latest Week Spend</div>
+        <div class="value">$5,085.57</div>
+        <div class="meta">May 04, 2026</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Google · Latest Week ROAS</div>
+        <div class="value" style="color:var(--lime)">4.74</div>
+        <div class="meta">Target ≥ 3 · Revenue $24,095.41</div>
+      </div>
+      <div class="kpi accent">
+        <div class="label">Google · Latest Week Conversions</div>
+        <div class="value">74.1</div>
+        <div class="meta">CPA $68.66</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Google · Latest Week Revenue</div>
+        <div class="value">$24,095.41</div>
+        <div class="meta">AOV $325.33 · ROAS 4.74</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-h">
+        <h2>Google Ads — Weekly Detail</h2>
+        <span class="sub">Xtrema Pure Ceramic Cookware · Spend shaded by volume · ROAS shaded vs target 2.70</span>
+      </div>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Amount Spent</th>
+              <th>Purchase</th>
+              <th>Revenue</th>
+              <th>CPA</th>
+              <th>ROAS</th>
+              <th>Impressions</th>
+              <th>Clicks</th>
+              <th>CPM</th>
+              <th>CTR%</th>
+              <th>CPC</th>
+              <th>Impr. (Abs. top) %</th>
+              <th>Impr. (Top) %</th>
+              <th>Search lost IS (budget)</th>
+              <th>Search lost IS (rank)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+      <td class="acct">May 11, 2026 <span class="partial-tag">partial</span></td>
+      <td>$2,156.59</td>
+      <td>15.5</td>
+      <td>$5,197.73</td>
+      <td>$139.38</td>
+      <td>2.41</td>
+      <td>101,976</td>
+      <td>1,204</td>
+      <td>21.15</td>
+      <td>0.01%</td>
+      <td>$1.79</td>
+      <td>64.73%</td>
+      <td>65.75%</td>
+      <td>2.03%</td>
+      <td>28.70%</td>
+    </tr><tr>
+      <td class="acct">May 04, 2026</td>
+      <td style="background:rgba(108,47,206,0.11)">$5,085.57</td>
+      <td>74.1</td>
+      <td>$24,095.41</td>
+      <td>$68.66</td>
+      <td style="background:rgba(199,243,0,0.24)">4.74</td>
+      <td>208,791</td>
+      <td>3,015</td>
+      <td>24.36</td>
+      <td>0.01%</td>
+      <td>$1.69</td>
+      <td>62.27%</td>
+      <td>63.08%</td>
+      <td>19.00%</td>
+      <td>14.52%</td>
+    </tr><tr>
+      <td class="acct">Apr 27, 2026</td>
+      <td style="background:rgba(108,47,206,0.11)">$4,857.90</td>
+      <td>73.6</td>
+      <td>$25,774.23</td>
+      <td>$66.01</td>
+      <td style="background:rgba(199,243,0,0.29)">5.31</td>
+      <td>162,574</td>
+      <td>3,326</td>
+      <td>29.88</td>
+      <td>0.02%</td>
+      <td>$1.46</td>
+      <td>61.76%</td>
+      <td>63.10%</td>
+      <td>26.70%</td>
+      <td>7.75%</td>
+    </tr><tr>
+      <td class="acct">Apr 20, 2026</td>
+      <td style="background:rgba(108,47,206,0.11)">$5,013.26</td>
+      <td>86.2</td>
+      <td>$26,855.02</td>
+      <td>$58.18</td>
+      <td style="background:rgba(199,243,0,0.30)">5.36</td>
+      <td>214,517</td>
+      <td>4,176</td>
+      <td>23.37</td>
+      <td>0.02%</td>
+      <td>$1.20</td>
+      <td>67.90%</td>
+      <td>69.50%</td>
+      <td>19.59%</td>
+      <td>7.96%</td>
+    </tr><tr>
+      <td class="acct">Apr 13, 2026</td>
+      <td style="background:rgba(108,47,206,0.12)">$5,434.74</td>
+      <td>81.3</td>
+      <td>$24,539.31</td>
+      <td>$66.89</td>
+      <td style="background:rgba(199,243,0,0.22)">4.52</td>
+      <td>241,089</td>
+      <td>3,649</td>
+      <td>22.54</td>
+      <td>0.02%</td>
+      <td>$1.49</td>
+      <td>65.49%</td>
+      <td>66.55%</td>
+      <td>22.29%</td>
+      <td>8.71%</td>
+    </tr><tr>
+      <td class="acct">Apr 06, 2026</td>
+      <td style="background:rgba(108,47,206,0.11)">$4,869.30</td>
+      <td>1,412.4</td>
+      <td>$46,056.25</td>
+      <td>$3.45</td>
+      <td style="background:rgba(199,243,0,0.30)">9.46</td>
+      <td>341,975</td>
+      <td>3,530</td>
+      <td>14.24</td>
+      <td>0.01%</td>
+      <td>$1.38</td>
+      <td>67.60%</td>
+      <td>68.86%</td>
+      <td>18.73%</td>
+      <td>9.01%</td>
+    </tr><tr>
+      <td class="acct">Mar 30, 2026</td>
+      <td style="background:rgba(108,47,206,0.11)">$4,982.75</td>
+      <td>1,551.8</td>
+      <td>$51,014.35</td>
+      <td>$3.21</td>
+      <td style="background:rgba(199,243,0,0.30)">10.24</td>
+      <td>210,719</td>
+      <td>3,833</td>
+      <td>23.65</td>
+      <td>0.02%</td>
+      <td>$1.30</td>
+      <td>65.71%</td>
+      <td>66.65%</td>
+      <td>21.71%</td>
+      <td>8.41%</td>
+    </tr><tr>
+      <td class="acct">Mar 23, 2026</td>
+      <td style="background:rgba(108,47,206,0.11)">$4,958.73</td>
+      <td>533.2</td>
+      <td>$59,537.08</td>
+      <td>$9.30</td>
+      <td style="background:rgba(199,243,0,0.30)">12.01</td>
+      <td>299,229</td>
+      <td>3,140</td>
+      <td>16.57</td>
+      <td>0.01%</td>
+      <td>$1.58</td>
+      <td>68.39%</td>
+      <td>69.35%</td>
+      <td>15.06%</td>
+      <td>12.38%</td>
+    </tr><tr>
+      <td class="acct">Mar 16, 2026</td>
+      <td style="background:rgba(108,47,206,0.11)">$5,048.08</td>
+      <td>286.8</td>
+      <td>$32,402.14</td>
+      <td>$17.60</td>
+      <td style="background:rgba(199,243,0,0.30)">6.42</td>
+      <td>291,405</td>
+      <td>3,168</td>
+      <td>17.32</td>
+      <td>0.01%</td>
+      <td>$1.59</td>
+      <td>68.63%</td>
+      <td>69.53%</td>
+      <td>10.75%</td>
+      <td>16.47%</td>
+    </tr><tr>
+      <td class="acct">Mar 09, 2026</td>
+      <td style="background:rgba(108,47,206,0.12)">$5,228.47</td>
+      <td>198.0</td>
+      <td>$38,959.88</td>
+      <td>$26.41</td>
+      <td style="background:rgba(199,243,0,0.30)">7.45</td>
+      <td>329,904</td>
+      <td>3,500</td>
+      <td>15.85</td>
+      <td>0.01%</td>
+      <td>$1.49</td>
+      <td>71.64%</td>
+      <td>73.31%</td>
+      <td>5.33%</td>
+      <td>18.41%</td>
+    </tr><tr>
+      <td class="acct">Mar 02, 2026</td>
+      <td style="background:rgba(108,47,206,0.13)">$5,576.62</td>
+      <td>182.1</td>
+      <td>$32,647.64</td>
+      <td>$30.62</td>
+      <td style="background:rgba(199,243,0,0.30)">5.85</td>
+      <td>324,002</td>
+      <td>3,779</td>
+      <td>17.21</td>
+      <td>0.01%</td>
+      <td>$1.48</td>
+      <td>73.71%</td>
+      <td>74.26%</td>
+      <td>7.84%</td>
+      <td>14.88%</td>
+    </tr><tr>
+      <td class="acct">Feb 23, 2026</td>
+      <td style="background:rgba(108,47,206,0.12)">$5,384.59</td>
+      <td>319.8</td>
+      <td>$41,528.53</td>
+      <td>$16.84</td>
+      <td style="background:rgba(199,243,0,0.30)">7.71</td>
+      <td>263,784</td>
+      <td>3,929</td>
+      <td>20.41</td>
+      <td>0.01%</td>
+      <td>$1.37</td>
+      <td>70.22%</td>
+      <td>71.01%</td>
+      <td>13.96%</td>
+      <td>11.41%</td>
+    </tr><tr>
+      <td class="acct">Feb 16, 2026</td>
+      <td style="background:rgba(108,47,206,0.13)">$5,728.10</td>
+      <td>283.6</td>
+      <td>$35,580.81</td>
+      <td>$20.20</td>
+      <td style="background:rgba(199,243,0,0.30)">6.21</td>
+      <td>220,600</td>
+      <td>4,065</td>
+      <td>25.97</td>
+      <td>0.02%</td>
+      <td>$1.41</td>
+      <td>61.13%</td>
+      <td>61.95%</td>
+      <td>27.99%</td>
+      <td>7.08%</td>
+    </tr><tr>
+      <td class="acct">Feb 09, 2026</td>
+      <td style="background:rgba(108,47,206,0.12)">$5,363.00</td>
+      <td>290.1</td>
+      <td>$37,902.46</td>
+      <td>$18.49</td>
+      <td style="background:rgba(199,243,0,0.30)">7.07</td>
+      <td>287,376</td>
+      <td>4,197</td>
+      <td>18.66</td>
+      <td>0.01%</td>
+      <td>$1.28</td>
+      <td>69.57%</td>
+      <td>70.21%</td>
+      <td>18.79%</td>
+      <td>8.18%</td>
+    </tr><tr>
+      <td class="acct">Feb 02, 2026</td>
+      <td style="background:rgba(108,47,206,0.11)">$4,955.61</td>
+      <td>374.4</td>
+      <td>$47,789.03</td>
+      <td>$13.24</td>
+      <td style="background:rgba(199,243,0,0.30)">9.64</td>
+      <td>272,389</td>
+      <td>3,883</td>
+      <td>18.19</td>
+      <td>0.01%</td>
+      <td>$1.28</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="acct">Jan 26, 2026</td>
+      <td style="background:rgba(108,47,206,0.10)">$4,397.32</td>
+      <td>482.5</td>
+      <td>$61,851.65</td>
+      <td>$9.11</td>
+      <td style="background:rgba(199,243,0,0.30)">14.07</td>
+      <td>306,823</td>
+      <td>3,428</td>
+      <td>14.33</td>
+      <td>0.01%</td>
+      <td>$1.28</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="acct">Jan 19, 2026</td>
+      <td style="background:rgba(108,47,206,0.13)">$5,668.20</td>
+      <td>358.6</td>
+      <td>$30,051.76</td>
+      <td>$15.81</td>
+      <td style="background:rgba(199,243,0,0.29)">5.30</td>
+      <td>340,792</td>
+      <td>3,592</td>
+      <td>16.63</td>
+      <td>0.01%</td>
+      <td>$1.58</td>
+      <td>57.09%</td>
+      <td>57.72%</td>
+      <td>30.42%</td>
+      <td>10.81%</td>
+    </tr><tr>
+      <td class="acct">Jan 12, 2026</td>
+      <td style="background:rgba(108,47,206,0.14)">$6,334.30</td>
+      <td>223.1</td>
+      <td>$33,551.11</td>
+      <td>$28.39</td>
+      <td style="background:rgba(199,243,0,0.29)">5.30</td>
+      <td>380,288</td>
+      <td>3,993</td>
+      <td>16.66</td>
+      <td>0.01%</td>
+      <td>$1.59</td>
+      <td>67.20%</td>
+      <td>67.63%</td>
+      <td>17.84%</td>
+      <td>13.80%</td>
+    </tr><tr>
+      <td class="acct">Jan 05, 2026</td>
+      <td style="background:rgba(108,47,206,0.16)">$7,055.29</td>
+      <td>180.5</td>
+      <td>$29,346.20</td>
+      <td>$39.08</td>
+      <td style="background:rgba(199,243,0,0.19)">4.16</td>
+      <td>454,791</td>
+      <td>4,808</td>
+      <td>15.51</td>
+      <td>0.01%</td>
+      <td>$1.47</td>
+      <td>53.77%</td>
+      <td>54.68%</td>
+      <td>29.54%</td>
+      <td>14.72%</td>
+    </tr><tr>
+      <td class="acct">Dec 29, 2025</td>
+      <td style="background:rgba(108,47,206,0.15)">$6,957.96</td>
+      <td>250.1</td>
+      <td>$48,433.51</td>
+      <td>$27.83</td>
+      <td style="background:rgba(199,243,0,0.30)">6.96</td>
+      <td>435,894</td>
+      <td>4,824</td>
+      <td>15.96</td>
+      <td>0.01%</td>
+      <td>$1.44</td>
+      <td>42.16%</td>
+      <td>42.70%</td>
+      <td>46.09%</td>
+      <td>10.97%</td>
+    </tr><tr>
+      <td class="acct">Dec 22, 2025</td>
+      <td style="background:rgba(108,47,206,0.18)">$8,292.09</td>
+      <td>242.9</td>
+      <td>$41,541.51</td>
+      <td>$34.14</td>
+      <td style="background:rgba(199,243,0,0.27)">5.01</td>
+      <td>585,213</td>
+      <td>5,743</td>
+      <td>14.17</td>
+      <td>0.01%</td>
+      <td>$1.44</td>
+      <td>53.55%</td>
+      <td>54.07%</td>
+      <td>23.03%</td>
+      <td>22.70%</td>
+    </tr><tr>
+      <td class="acct">Dec 15, 2025</td>
+      <td style="background:rgba(108,47,206,0.19)">$8,757.68</td>
+      <td>283.1</td>
+      <td>$58,633.14</td>
+      <td>$30.94</td>
+      <td style="background:rgba(199,243,0,0.30)">6.70</td>
+      <td>532,666</td>
+      <td>5,490</td>
+      <td>16.44</td>
+      <td>0.01%</td>
+      <td>$1.60</td>
+      <td>48.25%</td>
+      <td>49.26%</td>
+      <td>36.04%</td>
+      <td>14.02%</td>
+    </tr><tr>
+      <td class="acct">Dec 08, 2025</td>
+      <td style="background:rgba(108,47,206,0.21)">$9,557.60</td>
+      <td>324.0</td>
+      <td>$64,101.60</td>
+      <td>$29.50</td>
+      <td style="background:rgba(199,243,0,0.30)">6.71</td>
+      <td>444,853</td>
+      <td>6,068</td>
+      <td>21.48</td>
+      <td>0.01%</td>
+      <td>$1.58</td>
+      <td>38.93%</td>
+      <td>41.18%</td>
+      <td>45.01%</td>
+      <td>13.73%</td>
+    </tr><tr>
+      <td class="acct">Dec 01, 2025</td>
+      <td style="background:rgba(108,47,206,0.26)">$11,864.59</td>
+      <td>459.1</td>
+      <td>$109,142.30</td>
+      <td>$25.84</td>
+      <td style="background:rgba(199,243,0,0.30)">9.20</td>
+      <td>378,788</td>
+      <td>5,986</td>
+      <td>31.32</td>
+      <td>0.02%</td>
+      <td>$1.98</td>
+      <td>25.58%</td>
+      <td>30.69%</td>
+      <td>44.18%</td>
+      <td>22.48%</td>
+    </tr><tr>
+      <td class="acct">Nov 24, 2025</td>
+      <td style="background:rgba(108,47,206,0.21)">$9,312.57</td>
+      <td>698.8</td>
+      <td>$156,297.53</td>
+      <td>$13.33</td>
+      <td style="background:rgba(199,243,0,0.30)">16.78</td>
+      <td>218,446</td>
+      <td>5,728</td>
+      <td>42.63</td>
+      <td>0.03%</td>
+      <td>$1.63</td>
+      <td>22.23%</td>
+      <td>26.27%</td>
+      <td>54.66%</td>
+      <td>17.68%</td>
+    </tr><tr>
+      <td class="acct">Nov 17, 2025</td>
+      <td style="background:rgba(108,47,206,0.13)">$5,733.16</td>
+      <td>273.7</td>
+      <td>$49,465.52</td>
+      <td>$20.95</td>
+      <td style="background:rgba(199,243,0,0.30)">8.63</td>
+      <td>111,167</td>
+      <td>3,779</td>
+      <td>51.57</td>
+      <td>0.03%</td>
+      <td>$1.52</td>
+      <td>22.66%</td>
+      <td>24.26%</td>
+      <td>44.90%</td>
+      <td>29.29%</td>
+    </tr><tr>
+      <td class="acct">Nov 10, 2025</td>
+      <td style="background:rgba(108,47,206,0.11)">$4,980.91</td>
+      <td>214.9</td>
+      <td>$42,748.76</td>
+      <td>$23.17</td>
+      <td style="background:rgba(199,243,0,0.30)">8.58</td>
+      <td>198,057</td>
+      <td>3,097</td>
+      <td>25.15</td>
+      <td>0.02%</td>
+      <td>$1.61</td>
+      <td>29.74%</td>
+      <td>32.23%</td>
+      <td>40.56%</td>
+      <td>24.44%</td>
+    </tr><tr>
+      <td class="acct">Nov 03, 2025</td>
+      <td style="background:rgba(108,47,206,0.10)">$4,520.99</td>
+      <td>186.2</td>
+      <td>$34,789.91</td>
+      <td>$24.28</td>
+      <td style="background:rgba(199,243,0,0.30)">7.70</td>
+      <td>215,945</td>
+      <td>2,542</td>
+      <td>20.94</td>
+      <td>0.01%</td>
+      <td>$1.78</td>
+      <td>26.16%</td>
+      <td>27.70%</td>
+      <td>32.64%</td>
+      <td>37.17%</td>
+    </tr><tr>
+      <td class="acct">Oct 27, 2025</td>
+      <td style="background:rgba(108,47,206,0.08)">$3,228.06</td>
+      <td>180.5</td>
+      <td>$35,462.30</td>
+      <td>$17.89</td>
+      <td style="background:rgba(199,243,0,0.30)">10.99</td>
+      <td>117,904</td>
+      <td>2,177</td>
+      <td>27.38</td>
+      <td>0.02%</td>
+      <td>$1.48</td>
+      <td>22.94%</td>
+      <td>23.27%</td>
+      <td>42.98%</td>
+      <td>33.35%</td>
+    </tr><tr>
+      <td class="acct">Oct 20, 2025</td>
+      <td style="background:rgba(108,47,206,0.08)">$3,369.14</td>
+      <td>150.4</td>
+      <td>$30,866.02</td>
+      <td>$22.40</td>
+      <td style="background:rgba(199,243,0,0.30)">9.16</td>
+      <td>175,881</td>
+      <td>2,084</td>
+      <td>19.16</td>
+      <td>0.01%</td>
+      <td>$1.62</td>
+      <td>21.71%</td>
+      <td>22.07%</td>
+      <td>33.97%</td>
+      <td>45.40%</td>
+    </tr><tr>
+      <td class="acct">Oct 13, 2025</td>
+      <td style="background:rgba(108,47,206,0.08)">$3,503.52</td>
+      <td>80.0</td>
+      <td>$18,224.06</td>
+      <td>$43.81</td>
+      <td style="background:rgba(199,243,0,0.28)">5.20</td>
+      <td>174,433</td>
+      <td>2,036</td>
+      <td>20.09</td>
+      <td>0.01%</td>
+      <td>$1.72</td>
+      <td>23.28%</td>
+      <td>23.78%</td>
+      <td>48.83%</td>
+      <td>28.27%</td>
+    </tr><tr>
+      <td class="acct">Oct 06, 2025</td>
+      <td style="background:rgba(108,47,206,0.07)">$3,174.07</td>
+      <td>53.6</td>
+      <td>$19,571.93</td>
+      <td>$59.23</td>
+      <td style="background:rgba(199,243,0,0.30)">6.17</td>
+      <td>131,046</td>
+      <td>1,885</td>
+      <td>24.22</td>
+      <td>0.01%</td>
+      <td>$1.68</td>
+      <td>24.57%</td>
+      <td>26.37%</td>
+      <td>38.52%</td>
+      <td>36.51%</td>
+    </tr><tr>
+      <td class="acct">Sep 29, 2025</td>
+      <td style="background:rgba(108,47,206,0.08)">$3,279.00</td>
+      <td>38.5</td>
+      <td>$9,460.21</td>
+      <td>$85.09</td>
+      <td style="background:rgba(199,243,0,0.08)">2.89</td>
+      <td>165,855</td>
+      <td>1,463</td>
+      <td>19.77</td>
+      <td>0.01%</td>
+      <td>$2.24</td>
+      <td>20.50%</td>
+      <td>20.92%</td>
+      <td>57.55%</td>
+      <td>22.80%</td>
+    </tr><tr>
+      <td class="acct">Sep 22, 2025</td>
+      <td style="background:rgba(108,47,206,0.06)">$2,675.58</td>
+      <td>62.9</td>
+      <td>$20,820.61</td>
+      <td>$42.53</td>
+      <td style="background:rgba(199,243,0,0.30)">7.78</td>
+      <td>114,834</td>
+      <td>1,271</td>
+      <td>23.30</td>
+      <td>0.01%</td>
+      <td>$2.11</td>
+      <td>18.92%</td>
+      <td>19.27%</td>
+      <td>48.86%</td>
+      <td>32.36%</td>
+    </tr><tr>
+      <td class="acct">Sep 15, 2025</td>
+      <td style="background:rgba(108,47,206,0.09)">$3,692.26</td>
+      <td>70.8</td>
+      <td>$20,857.04</td>
+      <td>$52.17</td>
+      <td style="background:rgba(199,243,0,0.30)">5.65</td>
+      <td>139,212</td>
+      <td>1,608</td>
+      <td>26.52</td>
+      <td>0.01%</td>
+      <td>$2.30</td>
+      <td>18.96%</td>
+      <td>20.05%</td>
+      <td>56.67%</td>
+      <td>19.92%</td>
+    </tr><tr>
+      <td class="acct">Sep 08, 2025</td>
+      <td style="background:rgba(108,47,206,0.09)">$3,794.44</td>
+      <td>98.0</td>
+      <td>$26,913.86</td>
+      <td>$38.74</td>
+      <td style="background:rgba(199,243,0,0.30)">7.09</td>
+      <td>113,935</td>
+      <td>1,842</td>
+      <td>33.30</td>
+      <td>0.02%</td>
+      <td>$2.06</td>
+      <td>19.47%</td>
+      <td>20.49%</td>
+      <td>37.51%</td>
+      <td>38.52%</td>
+    </tr><tr>
+      <td class="acct">Sep 01, 2025</td>
+      <td style="background:rgba(108,47,206,0.08)">$3,574.72</td>
+      <td>92.0</td>
+      <td>$28,489.01</td>
+      <td>$38.87</td>
+      <td style="background:rgba(199,243,0,0.30)">7.97</td>
+      <td>110,897</td>
+      <td>1,708</td>
+      <td>32.23</td>
+      <td>0.02%</td>
+      <td>$2.09</td>
+      <td>20.86%</td>
+      <td>21.81%</td>
+      <td>56.74%</td>
+      <td>18.03%</td>
+    </tr><tr>
+      <td class="acct">Aug 25, 2025</td>
+      <td style="background:rgba(108,47,206,0.08)">$3,241.76</td>
+      <td>89.5</td>
+      <td>$23,847.31</td>
+      <td>$36.23</td>
+      <td style="background:rgba(199,243,0,0.30)">7.36</td>
+      <td>150,687</td>
+      <td>1,532</td>
+      <td>21.51</td>
+      <td>0.01%</td>
+      <td>$2.12</td>
+      <td>19.27%</td>
+      <td>20.91%</td>
+      <td>40.45%</td>
+      <td>34.81%</td>
+    </tr><tr>
+      <td class="acct">Aug 18, 2025</td>
+      <td style="background:rgba(108,47,206,0.08)">$3,258.87</td>
+      <td>53.5</td>
+      <td>$13,985.12</td>
+      <td>$60.94</td>
+      <td style="background:rgba(199,243,0,0.20)">4.29</td>
+      <td>175,093</td>
+      <td>1,535</td>
+      <td>18.61</td>
+      <td>0.01%</td>
+      <td>$2.12</td>
+      <td>19.70%</td>
+      <td>21.05%</td>
+      <td>43.63%</td>
+      <td>31.37%</td>
+    </tr><tr>
+      <td class="acct">Aug 11, 2025</td>
+      <td style="background:rgba(108,47,206,0.06)">$2,713.80</td>
+      <td>72.8</td>
+      <td>$19,811.32</td>
+      <td>$37.27</td>
+      <td style="background:rgba(199,243,0,0.30)">7.30</td>
+      <td>144,170</td>
+      <td>1,510</td>
+      <td>18.82</td>
+      <td>0.01%</td>
+      <td>$1.80</td>
+      <td>28.36%</td>
+      <td>29.15%</td>
+      <td>27.41%</td>
+      <td>39.42%</td>
+    </tr><tr>
+      <td class="acct">Aug 04, 2025</td>
+      <td style="background:rgba(108,47,206,0.07)">$2,859.41</td>
+      <td>81.3</td>
+      <td>$15,524.03</td>
+      <td>$35.16</td>
+      <td style="background:rgba(199,243,0,0.30)">5.43</td>
+      <td>141,139</td>
+      <td>1,451</td>
+      <td>20.26</td>
+      <td>0.01%</td>
+      <td>$1.97</td>
+      <td>26.20%</td>
+      <td>26.90%</td>
+      <td>34.77%</td>
+      <td>34.24%</td>
+    </tr><tr>
+      <td class="acct">Jul 28, 2025</td>
+      <td style="background:rgba(108,47,206,0.06)">$2,683.44</td>
+      <td>81.9</td>
+      <td>$19,146.05</td>
+      <td>$32.77</td>
+      <td style="background:rgba(199,243,0,0.30)">7.13</td>
+      <td>110,252</td>
+      <td>1,582</td>
+      <td>24.34</td>
+      <td>0.01%</td>
+      <td>$1.70</td>
+      <td>31.39%</td>
+      <td>33.15%</td>
+      <td>42.66%</td>
+      <td>20.37%</td>
+    </tr><tr>
+      <td class="acct">Jul 21, 2025</td>
+      <td style="background:rgba(108,47,206,0.06)">$2,513.36</td>
+      <td>61.8</td>
+      <td>$15,944.64</td>
+      <td>$40.70</td>
+      <td style="background:rgba(199,243,0,0.30)">6.34</td>
+      <td>105,228</td>
+      <td>1,404</td>
+      <td>23.88</td>
+      <td>0.01%</td>
+      <td>$1.79</td>
+      <td>31.60%</td>
+      <td>32.22%</td>
+      <td>25.34%</td>
+      <td>39.20%</td>
+    </tr><tr>
+      <td class="acct">Jul 14, 2025</td>
+      <td style="background:rgba(108,47,206,0.08)">$3,620.09</td>
+      <td>55.0</td>
+      <td>$12,862.70</td>
+      <td>$65.82</td>
+      <td style="background:rgba(199,243,0,0.14)">3.55</td>
+      <td>149,304</td>
+      <td>1,753</td>
+      <td>24.25</td>
+      <td>0.01%</td>
+      <td>$2.07</td>
+      <td>37.74%</td>
+      <td>38.61%</td>
+      <td>13.02%</td>
+      <td>44.72%</td>
+    </tr><tr>
+      <td class="acct">Jul 07, 2025</td>
+      <td style="background:rgba(108,47,206,0.07)">$2,845.77</td>
+      <td>71.8</td>
+      <td>$19,565.45</td>
+      <td>$39.63</td>
+      <td style="background:rgba(199,243,0,0.30)">6.88</td>
+      <td>76,059</td>
+      <td>1,689</td>
+      <td>37.42</td>
+      <td>0.02%</td>
+      <td>$1.68</td>
+      <td>36.67%</td>
+      <td>39.00%</td>
+      <td>41.34%</td>
+      <td>16.72%</td>
+    </tr><tr>
+      <td class="acct">Jun 30, 2025</td>
+      <td style="background:rgba(108,47,206,0.07)">$3,188.36</td>
+      <td>87.6</td>
+      <td>$24,088.49</td>
+      <td>$36.41</td>
+      <td style="background:rgba(199,243,0,0.30)">7.56</td>
+      <td>107,333</td>
+      <td>1,535</td>
+      <td>29.71</td>
+      <td>0.01%</td>
+      <td>$2.08</td>
+      <td>28.33%</td>
+      <td>30.60%</td>
+      <td>28.80%</td>
+      <td>36.63%</td>
+    </tr><tr>
+      <td class="acct">Jun 23, 2025</td>
+      <td style="background:rgba(108,47,206,0.08)">$3,248.18</td>
+      <td>111.6</td>
+      <td>$34,166.90</td>
+      <td>$29.11</td>
+      <td style="background:rgba(199,243,0,0.30)">10.52</td>
+      <td>114,393</td>
+      <td>2,748</td>
+      <td>28.39</td>
+      <td>0.02%</td>
+      <td>$1.18</td>
+      <td>27.16%</td>
+      <td>30.78%</td>
+      <td>30.84%</td>
+      <td>35.23%</td>
+    </tr><tr>
+      <td class="acct">Jun 16, 2025</td>
+      <td style="background:rgba(108,47,206,0.09)">$3,788.87</td>
+      <td>65.7</td>
+      <td>$14,980.49</td>
+      <td>$57.67</td>
+      <td style="background:rgba(199,243,0,0.17)">3.95</td>
+      <td>150,687</td>
+      <td>2,025</td>
+      <td>25.14</td>
+      <td>0.01%</td>
+      <td>$1.87</td>
+      <td>26.44%</td>
+      <td>29.43%</td>
+      <td>13.39%</td>
+      <td>53.66%</td>
+    </tr><tr>
+      <td class="acct">Jun 09, 2025</td>
+      <td style="background:rgba(108,47,206,0.07)">$3,091.31</td>
+      <td>92.1</td>
+      <td>$23,591.26</td>
+      <td>$33.58</td>
+      <td style="background:rgba(199,243,0,0.30)">7.63</td>
+      <td>97,419</td>
+      <td>3,258</td>
+      <td>31.73</td>
+      <td>0.03%</td>
+      <td>$0.95</td>
+      <td>31.01%</td>
+      <td>34.91%</td>
+      <td>51.31%</td>
+      <td>11.82%</td>
+    </tr><tr>
+      <td class="acct">Jun 02, 2025</td>
+      <td style="background:rgba(108,47,206,0.07)">$2,972.74</td>
+      <td>53.0</td>
+      <td>$18,776.77</td>
+      <td>$56.04</td>
+      <td style="background:rgba(199,243,0,0.30)">6.32</td>
+      <td>97,531</td>
+      <td>1,361</td>
+      <td>30.48</td>
+      <td>0.01%</td>
+      <td>$2.18</td>
+      <td>37.62%</td>
+      <td>38.67%</td>
+      <td>22.35%</td>
+      <td>36.78%</td>
+    </tr><tr>
+      <td class="acct">May 26, 2025</td>
+      <td style="background:rgba(108,47,206,0.06)">$2,551.47</td>
+      <td>57.2</td>
+      <td>$14,438.26</td>
+      <td>$44.62</td>
+      <td style="background:rgba(199,243,0,0.30)">5.66</td>
+      <td>101,354</td>
+      <td>1,233</td>
+      <td>25.17</td>
+      <td>0.01%</td>
+      <td>$2.07</td>
+      <td>34.31%</td>
+      <td>34.83%</td>
+      <td>47.84%</td>
+      <td>15.94%</td>
+    </tr><tr>
+      <td class="acct">May 19, 2025</td>
+      <td style="background:rgba(108,47,206,0.06)">$2,701.82</td>
+      <td>68.2</td>
+      <td>$19,360.91</td>
+      <td>$39.61</td>
+      <td style="background:rgba(199,243,0,0.30)">7.17</td>
+      <td>107,126</td>
+      <td>1,436</td>
+      <td>25.22</td>
+      <td>0.01%</td>
+      <td>$1.88</td>
+      <td>34.33%</td>
+      <td>35.19%</td>
+      <td>29.67%</td>
+      <td>32.58%</td>
+    </tr><tr>
+      <td class="acct">May 12, 2025</td>
+      <td style="background:rgba(108,47,206,0.04)">$1,589.38</td>
+      <td>24.8</td>
+      <td>$6,491.79</td>
+      <td>$64.17</td>
+      <td style="background:rgba(199,243,0,0.18)">4.08</td>
+      <td>63,868</td>
+      <td>794</td>
+      <td>24.89</td>
+      <td>0.01%</td>
+      <td>$2.00</td>
+      <td>35.11%</td>
+      <td>36.88%</td>
+      <td>39.22%</td>
+      <td>19.72%</td>
+    </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>Last 12 Months</td>
+              <td>$243,646.01</td>
+              <td>11,869.7</td>
+              <td>$1,790,589.11</td>
+              <td>$20.53</td>
+              <td class="pos">7.35</td>
+              <td>11,445,825</td>
+              <td>153,598</td>
+              <td>21.29</td>
+              <td>1.34%</td>
+              <td>$1.59</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+  </section>
+
+  <footer>Generated 2026-05-14T13:32:21Z · Source: GoMarble (Meta Graph API + Google Ads API)</footer>
+</div>
+
+<script>
+  (function () {
+    const buttons = document.querySelectorAll(".tab-btn");
+    const panels  = document.querySelectorAll(".tab-panel");
+    function show(name) {
+      buttons.forEach(b => {
+        const on = b.dataset.tab === name;
+        b.classList.toggle("active", on);
+        b.setAttribute("aria-selected", on ? "true" : "false");
+      });
+      panels.forEach(p => p.classList.toggle("active", p.id === "tab-" + name));
+      if (history.replaceState) history.replaceState(null, "", "#" + name);
+    }
+    buttons.forEach(b => b.addEventListener("click", () => show(b.dataset.tab)));
+    const initial = (location.hash || "#meta").slice(1);
+    if (["meta", "google", "overall"].includes(initial)) show(initial);
+  })();
+</script>
+</body>
+</html>
